@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>DemoApp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+
+    <header id="mainHeader">
+        <button id="backBtn">←</button>
+        <div class="header-title">
+        <span id="appName">DemoApp</span>
+        </div>
+    </header>
+
+    <main id="chatContainer"></main>
+
+    <footer id="inputFooter">
+        <textarea id="messageInput" placeholder="..." rows="1" autofocus></textarea>
+        <button id="sendButton">✉️</button>
+    </footer>
+
+    <!-- Spixi SDK (will work IN Spixi) -->
+    <script src="js/spixi-app-sdk.js"></script>
+    <script src="js/spixi-tools.js"></script>
+
+    <!-- Mock: connects right AFTER — change SDK logic ONLY for browser DEV -->
+    <script src="js/mock.js"></script>
+
+    <!-- main app entry point -->
+    <script type="module" src="js/main.js"></script>
+    </body>
+</html>

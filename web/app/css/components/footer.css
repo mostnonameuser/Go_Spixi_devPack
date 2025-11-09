@@ -1,0 +1,67 @@
+/* app/css/components/footer.css */
+
+#commandsBtn {
+    background-color: var(--border);
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#messageInput {
+    flex: 1;
+    min-width: 0;
+    padding: 8px 12px;
+    border: 1px solid var(--input-border);
+    border-radius: 16px;
+    outline: none;
+    margin-right: 8px;
+    resize: none;
+    line-height: 1.4;
+    max-height: 75px;
+    overflow-y: auto;
+    font-family: inherit;
+    font-size: 1rem;
+    background-color: var(--input-bg);
+    color: var(--text);
+}
+
+#messageInput.input-disabled {
+    background-color: var(--input-bg);
+    color: var(--text-secondary);
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+#messageInput:focus {
+    border-color: var(--input-focus);
+    box-shadow: 0 0 5px var(--input-focus-shadow);
+}
+
+#sendButton {
+    background-color: var(--send-btn);
+    color: var(--modal-btn-send-text);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#sendButton:hover:not(:disabled) {
+    background-color: var(--send-btn-hover);
+}
+
+#sendButton:disabled {
+    background-color: var(--send-btn-disabled);
+    cursor: not-allowed;
+}

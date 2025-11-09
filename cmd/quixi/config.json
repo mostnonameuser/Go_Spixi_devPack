@@ -1,0 +1,10 @@
+{
+ "enable_dev_server" : true ,
+ "dev_server_ws" : ":8888",
+ "dev_server_web" : ":8081",
+ "quixi_api": "192.168.88.250:9999",
+ "mqtt": "192.168.88.250:1883",
+ "username": "",
+ "password": "",
+ "client_id": "com.devapp"
+}

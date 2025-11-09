@@ -1,0 +1,99 @@
+/* app/css/_vars.css */
+
+:root {
+    /* Global */
+    --bg: #ffffff;
+    --text: #333;
+    --text-secondary: #777;
+    --border: #eee;
+    --border-strong: #ddd;
+    --header-bg: #0b3458;
+    --header-text: #ffffff;
+    --balance-color: #93b697;
+    --user-bubble: #3084d3;
+    --ai-bubble: #3084d352;
+    --ai-text: #000000;
+    --system-bubble: #e9a15952;
+    --system-text: #000000;
+    --footer-bg: #ffffff;
+    --input-bg: #ffffff;
+    --input-border: #ddd;
+    --input-focus: #4caf50;
+    --input-focus-shadow: rgba(76, 175, 80, 0.3);
+    --send-btn: #34945a;
+    --send-btn-hover: #2e5378;
+    --send-btn-disabled: #ccc;
+    --low-sidebar-field: #948934;
+    --low-sidebar-field-hover: #625e40;
+    --modal-bg: #ffffff;
+    --modal-text: #333;
+    --modal-label: #555;
+    --modal-btn-cancel: #ccc;
+    --modal-btn-cancel-text: #4a4a4a;
+    --modal-btn-send: #1b4f7c;
+    --modal-btn-send-text: #ffffff;
+    --context-bg: #ffffff;
+    --context-text: #333;
+    --context-hover: #f5f5f5;
+    --context-border: #eee;
+    --commands-bg: #ffffff;
+    --commands-text: #333;
+    --commands-hover: #f5f5f5;
+    --commands-border: #eee;
+    --code-bg: #1b1b1b;
+    --code-border: #fffb00;
+    --code-text: #f8f8f2;
+    --inline-code-bg: #4d624e;
+    --spinner-bg: #f3f3f3;
+    --spinner-top: #1e88e5;
+    --loading-text: #333;
+}
+
+/* === Dark Theme Variables === */
+:root.dark-theme {
+    --bg: #1a1a1a;
+    --text: #e0e0e0;
+    --text-secondary: #aaa;
+    --border: #444;
+    --border-strong: #555;
+    --header-bg: #0b3458;
+    --header-text: #ffffff;
+    --balance-color: #93b697;
+    --user-bubble: #2563eb;
+    --ai-bubble: #374151;
+    --ai-text: #ffffff;
+    --system-bubble: #735231;
+    --system-text: #ffffff;
+    --footer-bg: #2d2d2d;
+    --input-bg: #333;
+    --input-border: #555;
+    --input-focus: #4fc3f7;
+    --input-focus-shadow: rgba(79, 195, 247, 0.3); /* #4fc3f7 с прозрачностью */
+    --send-btn: #34945a;
+    --send-btn-hover: #2e5378;
+    --send-btn-disabled: #555;
+    --low-sidebar-field: #948934;
+    --low-sidebar-field-hover: #625e40;
+    --modal-bg: #2d2d2d;
+    --modal-text: #e0e0e0;
+    --modal-label: #ccc;
+    --modal-btn-cancel: #353434;
+    --modal-btn-cancel-text: #918b8b;
+    --modal-btn-send: #1b4f7c;
+    --modal-btn-send-text: #ffffff;
+    --context-bg: #2d2d2d;
+    --context-text: #e0e0e0;
+    --context-hover: #3a3a3a;
+    --context-border: #444;
+    --commands-bg: #2d2d2d;
+    --commands-text: #e0e0e0;
+    --commands-hover: #3a3a3a;
+    --commands-border: #444;
+    --code-bg: #1b1b1b;
+    --code-border: #5d682e;
+    --code-text: #f8f8f2;
+    --inline-code-bg: #385d39;
+    --spinner-bg: #333;
+    --spinner-top: #4fc3f7;
+    --loading-text: #ffffff;
+}

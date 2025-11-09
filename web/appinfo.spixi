@@ -1,0 +1,8 @@
+caVersion = 0
+id = com.devapp
+publisher = mostnonameuser 
+name = DevApp
+version = 0.0.1
+capabilities = multiUser
+protocols = com.devapp
+icon = icon.png
