@@ -35,7 +35,8 @@ Your app will use the same SDK calls (SpixiAppSdk.sendNetworkProtocolData, etc.)
 
 ### 3. Run the dev server
 ```bash
-go run cmd/quixi/main.go
+cd cmd/quixi 
+go run .
 ```
 ### 4. Develop in browser → deploy to Spixi
    * Test UI/UX, streaming, chat logic in browser
