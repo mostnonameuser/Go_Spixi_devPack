@@ -7,17 +7,17 @@ Created by **[mostnonameuser](https://github.com/mostnonameuser)**.
 
 ---
 
-## 🌟 Features
+## Features
 
 - **Dual-mode runtime**: works in **browser** (for dev) and **Spixi** (for prod)
-- **Go backend**: handles Ixian messages + WebSocket API
+- **Go backend**: handles Ixian messages [QuIXI+MQTT] + WebSocket API
 - **Live browser testing**: no Spixi rebuild needed for UI tweaks
 - **Modular frontend**: clean separation of UI, logic, and styles
 - **MIT Licensed**: fully compatible with [Ixian Core](https://github.com/ProjectIxian/Ixian-Core)
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### 1. Clone & prepare
 ```bash
@@ -28,8 +28,9 @@ cd Go_Spixi_devPack
 ```
 web/app/
 ├── index.html
+├── css/
 ├── js/
-└── static/
+└── .../
 ```
 Your app will use the same SDK calls (SpixiAppSdk.sendNetworkProtocolData, etc.) in both browser and Spixi.
 
@@ -49,8 +50,8 @@ Go_Spixi_devPack/
 ├── cmd/quixi/            # Go entry point
 ├── internal/
 │   ├── config/           # Configuration
-│   ├── devservice/       # WebSocket API 
-│   └── service/          # Ixian message processing
+│   ├── devserver/        # DevWeb  
+│   └── nwtwork/          # Ixian message processing / WS API
 ├── web/app/              # ← YOUR MINIAPP GOES HERE
 │   ├── index.html
 │   └── js/
