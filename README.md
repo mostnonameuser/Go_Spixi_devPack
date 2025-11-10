@@ -29,7 +29,7 @@ cd Go_Spixi_devPack
 web/app/
 ├── index.html
 ├── css/
-├── js/
+├── js/        # Follow activation logic in index.html - SpixiSDK - mock.js - main.js - DemoApp.js... 
 └── .../
 ```
 Your app will use the same SDK calls (SpixiAppSdk.sendNetworkProtocolData, etc.) in both browser and Spixi.
