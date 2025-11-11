@@ -24,6 +24,10 @@ type AiMessage struct {
 	MessageId int `json:"messageId"`
 	ChatId    int `json:"chatId"`
 }
+type SendAppDataRequest struct {
+	Method string `json:"method"`
+	Params SendAppDataParams `json:"params"`
+}
 type SendAppDataParams struct {
 	Address     string `json:"address"`
 	ProtocolId  string `json:"protocolId"`

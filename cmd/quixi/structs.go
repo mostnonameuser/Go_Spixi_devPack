@@ -16,12 +16,6 @@ type Message struct {
 	Topic   string
 	Payload []byte
 }
-//
-//type TaskForLLm struct {
-//	messageId int
-//	address string
-//}
-
 type MQTTBroker struct {
 	client   mqtt.Client
 	config   *config.Config

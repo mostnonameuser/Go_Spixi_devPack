@@ -1,13 +1,8 @@
-import { initElements } from './ui/elements.js';
-import { setupControls } from './ui/controls.js';
-import * as messages from './ui/messages.js';
-import { setupMessageListener } from './logic/network.js';
+// js/DemoApp.js
 
-export class DemoApp {
-    static DeBugMode = false;
-
-    constructor(protocolId = "com.devapp", pingInterval = 5000) {
-        this.DEBUG_MODE = DemoApp.DeBugMode;
+window.DemoApp = class DemoApp {
+    constructor(protocolId = "com.devapp", pingInterval = 30000) {
+        this.debmode = false;
         this.protocolId = protocolId;
         this.pingInterval = pingInterval;
         this.pingTimer = null;
@@ -16,34 +11,34 @@ export class DemoApp {
         this.messageElements = new Map();
         this.state = {
             messages: [],
-            isReady: false,
+            isReady: true,
         };
 
         this.uiHandlers = {
             // messages
-            onAddMessage: (msg, sender, id) => messages.addMessage(this, msg, sender, id),
+            onAddMessage: (msg, sender, id) => window.messages.addMessage(this, msg, sender, id),
             // window
-            onSetWaitingState: (set) => messages.setWaitingState(this, set),
+            onSetWaitingState: (set) => window.messages.setWaitingState(this, set),
         };
+        this.netHandlers = {
+            onDebug: (lvl, text) => window.network.sendDebug(this, lvl, text),
+            turnOnDebug: () => this.debmode = true,
+        }
     }
 
     onInit = (sessionId, userAddresses) => {
-        initElements(this);
-        setupControls(this);
-        setupMessageListener(this);
+        window.initElements(this);
+        window.setupControls(this);
+        window.network.setupMessageListener(this);
         this.startPinging();
     };
 
     destroy = () => {
         this.stopPinging();
-        document.removeEventListener("visibilitychange", () => handleVisibilityChange(this));
-        document.removeEventListener("click", this.globalClickHandler);
     };
 
-
-    // Ping logic
     pingQuIXI = () => {
-        const timestamp = window.SpixiTools?.getTimestamp?.() ;
+        const timestamp = window.SpixiTools?.getTimestamp?.();
         window.SpixiAppSdk?.sendNetworkProtocolData(
             this.protocolId,
             JSON.stringify({ action: "ping", ts: timestamp })
@@ -63,4 +58,5 @@ export class DemoApp {
             this.pingTimer = null;
         }
     };
-}
+};
+

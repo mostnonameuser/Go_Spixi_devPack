@@ -1,4 +1,6 @@
-export const initElements = (app) => {
+// js/ui/elements.js
+
+const initElements = (app) => {
     if (location.protocol === 'http:') {
         app.state.isReady = true;
     }
@@ -8,3 +10,5 @@ export const initElements = (app) => {
     app.backBtn = document.getElementById("backBtn");
     app.inputFooter = document.getElementById("inputFooter");
 };
+
+window.initElements = initElements;

@@ -16,9 +16,7 @@ func main() {
 	defer cancel()
 	quixi := NewService(conf)
 	if quixi.conf.EnableDevServer {
-		// Запуск фоновых сервисов
 		go quixi.DevService.Start(ctx)
-		// Запуск HTTP-сервера (он должен блокировать!)
 		httpServer := devserver.NewHTTPServer(conf.DevServerWeb)
 		go func() {
 			httpServer.Start()

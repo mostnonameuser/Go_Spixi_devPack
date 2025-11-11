@@ -18,13 +18,12 @@ import (
 )
 
 
-var messageQueue = make(chan Message, 100) // Буферизованная очередь из 100 сообщений
+var messageQueue = make(chan Message, 100)
 var wg sync.WaitGroup
 
 func (b *MQTTBroker) Connect() error {
 	opts := mqtt.NewClientOptions()
 	opts.AddBroker(fmt.Sprintf("tcp://%s", b.config.Mqtt))
-	//opts.SetClientID(b.config.ClientID)
 
 	if b.config.Username != "" && b.config.Password != "" {
 		opts.SetUsername(b.config.Username)
@@ -94,24 +93,34 @@ func (b *MQTTBroker) GetMessages (ctx context.Context){
 				}
 				switch msg.Topic {
 				case "Chat":
+					log.Println(msg.Topic)
 					b.ProceedDirectWalletMessage(msg)
 					continue
 				case "RequestAdd2":
-					b.AcceptContact(msg)
+					log.Println(msg.Topic)
+					//b.AcceptContact(msg)
 					continue
 				case "FriendStatusUpdate":
+					log.Println(msg.Topic)
 					continue
 				case "AppRequest":
+					log.Println(msg.Topic)
 					continue
 				case "AppData":
+					log.Println(msg.Topic)
 					continue
 				case "AppProtocolData":
+					log.Println(msg.Topic)
+					b.ProceedAppMessage(msg)
 					continue
 				case "AppEndSession":
+					log.Println(msg.Topic)
 					continue
 				case "SentFunds":
+					log.Println(msg.Topic)
 					continue
 				case "TransactionStatusUpdate":
+					log.Println(msg.Topic)
 					continue
 				default:
 					log.Println("Unknown topic", msg.Topic)
@@ -159,6 +168,56 @@ func (b *MQTTBroker) ProceedAppMessage(msg Message){
 	switch mesg.Action {
 	case "ping":
 		fmt.Println("Ping received")
+		readyPayload := map[string]interface{}{
+			"action":       "debug",
+		}
+		payloadJSON, err := json.Marshal(readyPayload)
+		if err != nil {
+			fmt.Println("marshal ready payload:", err)
+		}
+		reqBody := network.SendAppDataRequest{
+			Method: "sendAppData",
+			Params: network.SendAppDataParams{
+				Address:   body.Sender.Base58Address,
+				ProtocolId: b.config.ClientId,
+				Data:      string(payloadJSON),
+			},
+		}
+		jsonBody, err := json.Marshal(reqBody)
+		fmt.Println(string(jsonBody))
+		baseURL := fmt.Sprintf("%s/sendAppData", b.qUixiLink)
+		postIxiErr := postToQuIXI(baseURL, jsonBody)
+		if postIxiErr != nil {
+			log.Printf("Processing context messages  answer error %v\n", postIxiErr)
+		}
+	case "sendMessage":
+		fmt.Println("SendMessageDetect")
+		hstr := fmt.Sprintf("DemoMessage, u wrote : %s \n", mesg.Text)
+		readyPayload := map[string]interface{}{
+			"action":         "response",
+			"sender":   "ai",
+			"message":  hstr,
+			"messageId" : mesg.MessageId,
+		}
+		payloadJSON, err := json.Marshal(readyPayload)
+		if err != nil {
+			fmt.Println("marshal answer ready payload:", err)
+		}
+		reqBody := network.SendAppDataRequest{
+			Method: "sendAppData",
+			Params: network.SendAppDataParams{
+				Address:   body.Sender.Base58Address,
+				ProtocolId: b.config.ClientId,
+				Data:      string(payloadJSON),
+			},
+		}
+		jsonBody, err := json.Marshal(reqBody)
+		fmt.Println(string(jsonBody))
+		baseURL := fmt.Sprintf("%s/sendAppData", b.qUixiLink)
+		postIxiErr := postToQuIXI(baseURL, jsonBody)
+		if postIxiErr != nil {
+			log.Printf("Processing context messages  answer error %v\n", postIxiErr)
+		}
 	default:
 		fmt.Println("Some other activity: ", string(decodedBytes))
 	}

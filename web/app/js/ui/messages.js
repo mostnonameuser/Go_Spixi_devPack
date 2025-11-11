@@ -1,6 +1,5 @@
-import { processMarkdown } from '../utils/markdown.js';
-
-export const handleSendClick = (app) => {
+// js/ui/controls.js
+function handleSendClick(app) {
     if (app.isWaitingForResponse) {
         alert("CancelRequest Logic")
     } else {
@@ -8,30 +7,26 @@ export const handleSendClick = (app) => {
     }
 };
 
-export const sendMessage = (app) => {
+function sendMessage(app) {
     const message = app.messageInput.value.trim();
     if (!message || !app.state.isReady || app.isWaitingForResponse) return;
     const messageId = window.SpixiTools?.getTimestamp?.();
-    addMessage(app, message, "user", messageId);
+    window.messages.addMessage(app, message, "user", messageId);
     app.messageInput.value = "";
-    setWaitingState(app, true);
+    window.messages.setWaitingState(app, true);
     app.currentRequestId = messageId;
     SpixiAppSdk.sendNetworkProtocolData(
         app.protocolId,
         JSON.stringify({ action: "sendMessage",
             text: message,
             messageId: messageId,
-            chatId: app.state.chatId,
-            chat: app.state.chatName
         })
     );
 };
-
-export const scrollToBottom = (app) => {
+function scrollToBottom(app) {
     app.chatContainer.scrollTop = app.chatContainer.scrollHeight;
 };
-
-export const addMessage = (app, text, sender, messageId = null) => {
+function addMessage(app, text, sender, messageId = null) {
     if (!messageId) {
         messageId = window.SpixiTools?.getTimestamp?.() ;
     }
@@ -48,7 +43,7 @@ export const addMessage = (app, text, sender, messageId = null) => {
         messageDiv.classList.add('message-system');
     }
 
-    const formattedText = processMarkdown(text);
+    const formattedText = window.processMarkdown(text);
     messageDiv.innerHTML = `
         <div>${formattedText}</div>
         <div class="message-time">${timeString}</div>
@@ -58,7 +53,7 @@ export const addMessage = (app, text, sender, messageId = null) => {
     app.messageElements.set(messageId, messageDiv);
 };
 
-export const setWaitingState = (app, waiting) => {
+function setWaitingState(app, waiting) {
     app.isWaitingForResponse = waiting;
     if (waiting) {
         app.inputFooter.classList.add("waiting");
@@ -73,4 +68,9 @@ export const setWaitingState = (app, waiting) => {
         app.sendButton.title = "Отправить сообщение";
     }
 };
-
+window.messages = {
+    addMessage: addMessage,
+    setWaitingState: setWaitingState,
+    sendMessage: sendMessage,
+    handleSendClick: handleSendClick,
+};

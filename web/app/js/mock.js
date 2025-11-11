@@ -3,10 +3,9 @@ const DEV_SERVER_WS_URL = 'ws://localhost:8888/ws';
 (function () {
     if (location.protocol !== 'http:' ) {
         return;
-    } 
+    }
     var isSpixiEnvironment = false;
     var ws = null; 
-    console.log("Mock: SpixiAppSdk ready, onInit =", SpixiAppSdk.onInit);
     function logMock(message) {
         if (!isSpixiEnvironment) {
             if (typeof console !== 'undefined' && console.log) {

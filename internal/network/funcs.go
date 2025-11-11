@@ -72,7 +72,18 @@ func (ds *DevService) Start(ctx context.Context) error {
 			}
 			switch mesg.Action {
 			case "ping":
-				fmt.Println("Ping here")
+				if ds.Conf.Debug {
+					fmt.Println("DendDebug")
+					readyPayload := map[string]interface{}{
+						"action":         "debug",
+					}
+					payloadJSON, err := json.Marshal(readyPayload)
+					if err != nil {
+						fmt.Println("marshal answer ready payload:", err)
+					}
+					fmt.Println(string(payloadJSON))
+					ds.SendWsMessage(payloadJSON)
+				}
 				continue
 			case "unlock":
 				fmt.Println("Unlock")
@@ -90,10 +101,11 @@ func (ds *DevService) Start(ctx context.Context) error {
 				if err != nil {
 					fmt.Println("marshal answer ready payload:", err)
 				}
+				fmt.Println(string(payloadJSON))
 				ds.SendWsMessage(payloadJSON)
 				continue
 			case "help":
-				ds.HelpMessage() // example if app can send "help" to server
+				ds.HelpMessage()
 				continue
 			default:
 				fmt.Println(mesg.Action)
@@ -118,6 +130,34 @@ func (ds *DevService) Start(ctx context.Context) error {
 	}
 
 	return nil
+}
+func (ds *DevService) SetDebug (){
+	readyPayload := map[string]interface{}{
+		"action":         "debug",
+	}
+	payloadJSON, err := json.Marshal(readyPayload)
+	if err != nil {
+		fmt.Println("marshal ready payload:", err)
+	}
+	reqBody := SendAppDataParams{
+		Address:   address,
+		ProtocolId: ds.Conf.ClientId,
+		Data:      string(payloadJSON),
+	}
+	jsonBody, err := json.Marshal(reqBody)
+	if err != nil {
+		log.Printf("marshal devService request error: %v \n\n", err)
+	}
+	if raw, ok := ds.Conns.Load(address); ok {
+		if conn, ok := raw.(*websocket.Conn); ok {
+			ds.Mu.Lock()
+			err = conn.WriteMessage(websocket.TextMessage, jsonBody)
+			if err != nil {
+				fmt.Println("Error WS Send ", err)
+			}
+			ds.Mu.Unlock()
+		}
+	}
 }
 func (ds *DevService) HelpMessage (){
 	hstr := fmt.Sprint("It's a help message")
