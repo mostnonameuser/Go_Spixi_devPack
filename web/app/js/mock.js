@@ -110,7 +110,6 @@ const DEV_SERVER_WS_URL = 'ws://localhost:8888/ws';
 
             fireOnLoad: function () {
                 logMock("fireOnLoad() called");
-                // Эмулируем инициализацию через таймаут
                 setTimeout(() => {
                     if (typeof SpixiAppSdk.onInit === 'function') {
                         SpixiAppSdk.onInit("mock-session-id", "mock-address");
@@ -125,7 +124,6 @@ const DEV_SERVER_WS_URL = 'ws://localhost:8888/ws';
 
             sendNetworkData: function (data) {
                 logMock("sendNetworkData: " + data);
-                // Эмулируем получение этого же сообщения как входящего
                 setTimeout(() => {
                     if (typeof SpixiAppSdk.onNetworkData === 'function') {
                         SpixiAppSdk.onNetworkData("mock-peer", data);
@@ -195,7 +193,7 @@ const DEV_SERVER_WS_URL = 'ws://localhost:8888/ws';
                     } else {
                         alert("[MOCK ERROR] SpixiAppSdk.onInit is not a function!");
                     }
-                }, 50); // небольшая задержка для гарантии
+                }, 50);
             });
         } else {
             SpixiAppSdk.fireOnLoad();

@@ -68,7 +68,7 @@
     --input-bg: #333;
     --input-border: #555;
     --input-focus: #4fc3f7;
-    --input-focus-shadow: rgba(79, 195, 247, 0.3); /* #4fc3f7 с прозрачностью */
+    --input-focus-shadow: rgba(79, 195, 247, 0.3);
     --send-btn: #34945a;
     --send-btn-hover: #2e5378;
     --send-btn-disabled: #555;
