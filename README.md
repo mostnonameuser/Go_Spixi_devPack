@@ -10,10 +10,10 @@ Created by **[mostnonameuser](https://github.com/mostnonameuser)**.
 ## Features
 
 - **Dual-mode runtime**: works in **browser** (for dev) and **Spixi** (for prod)
-- **Go backend**: handles Ixian messages [QuIXI+MQTT] + WebSocket API
+- **Go backend**: handles Ixian messages [QuIXI+MQTT] + WebSocket API with unified logic
 - **Live browser testing**: no Spixi rebuild needed for UI tweaks
 - **Modular frontend**: clean separation of UI, logic, and styles
-- **MIT Licensed**: fully compatible with [Ixian Core](https://github.com/ProjectIxian/Ixian-Core)
+- **MIT Licensed**: fully compatible with [Ixian](https://github.com/ProjectIxian)
 
 ---
 
@@ -40,8 +40,8 @@ cd cmd/quixi
 go run .
 ```
 ### 4. Develop in browser → deploy to Spixi
-   * Test UI/UX, streaming, chat logic in browser
-   * When ready, zip web/app/ and install as Spixi MiniApp
+   * Test your entire app in the browser—UI before going live on Spixi.
+   * When ready, use official [app-packer](https://github.com/ixian-platform/Spixi-Mini-Apps/tree/master/app-packer) and install as MiniApp in Spixi
    * Zero code changes required
 
 ### Project Structure
@@ -69,6 +69,6 @@ This software does not include any Ixian proprietary code.
 
 Distributed under the MIT License. See LICENSE for details.
 
-Compatible with Ixian Core (also MIT Licensed).
+Compatible with Ixian (also MIT Licensed).
 
 ### "The best way to predict the future is to build it." — Go Spixi DevPack
