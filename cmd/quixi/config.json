@@ -1,5 +1,5 @@
 {
- "enable_dev_server" : false ,
+ "enable_dev_server" : true ,
  "debug" : true ,
  "dev_server_ws" : ":8888",
  "dev_server_web" : ":8081",

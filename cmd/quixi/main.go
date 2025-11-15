@@ -2,8 +2,10 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"github.com/mostnonameuser/Go_Spixi_devPack/internal/config"
 	"github.com/mostnonameuser/Go_Spixi_devPack/internal/devserver"
+	"github.com/mostnonameuser/Go_Spixi_devPack/internal/network"
 	"log"
 	"os"
 	"os/signal"
@@ -14,26 +16,34 @@ func main() {
 	conf := config.NewConfig()
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
-	quixi := NewService(conf)
-	if quixi.conf.EnableDevServer {
-		go quixi.DevService.Start(ctx)
+
+	var quixi network.Broker
+	if conf.EnableDevServer {
 		httpServer := devserver.NewHTTPServer(conf.DevServerWeb)
 		go func() {
 			httpServer.Start()
 		}()
-		log.Println("Dev mode active")
+		quixi = network.NewWsBroker(conf)
 	} else {
-		if err := quixi.Listener.Connect(); err != nil {
-			log.Fatal("Failed to connect:", err)
-		}
-		defer quixi.Listener.Disconnect()
-		quixi.Listener.GetMessages(ctx)
-		quixi.Listener.Subscribe("#", handleMessage)
-		log.Println("MQTT Broker running...")
+		quixi = network.NewMQQTBroker(conf)
 	}
+	if err := quixi.Connect(); err != nil {
+		log.Fatal("Failed to connect broker:", err)
+	}
+	defer quixi.Disconnect()
 	sigChan := make(chan os.Signal, 1)
 	signal.Notify(sigChan, syscall.SIGINT, syscall.SIGTERM)
-	<-sigChan // Wait for interrupt signal
+	go func() {
+		fmt.Println("Starting server")
+		if err := quixi.Start(ctx); err != nil {
+			log.Fatal("Broker failed:", err)
+		}
+	}()
+	<-sigChan
 	log.Println("Shutting down gracefully...")
+
+	if err := quixi.Disconnect(); err != nil {
+		log.Printf("Error during disconnect: %v", err)
+	}
 	gracefulShutdown(cancel)
 }

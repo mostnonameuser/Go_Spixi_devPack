@@ -17,7 +17,7 @@ func (s *HTTPServer) Start() {
 	fs := http.FileServer(http.Dir("../../web/app"))
 	http.Handle("/", fs)
 
-	log.Printf("Serving frontend at http://localhost%s", s.addr)
+	log.Printf("Serving DEV frontend at http://localhost%s", s.addr)
 	if err := http.ListenAndServe(s.addr, nil); err != nil {
 		log.Fatalf("HTTP server failed: %v", err)
 	}
