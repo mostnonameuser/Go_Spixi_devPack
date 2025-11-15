@@ -1,6 +1,6 @@
 ﻿# Go Spixi DevPack
 
-> **The first development toolkit for Ixian Spixi MiniApps**  
+> **The first development toolkit for Spixi MiniApps**  
 > Build, test, and debug your MiniApp **in the browser** — then deploy to Spixi **without changing a single line of code**.
 
 Created by **[mostnonameuser](https://github.com/mostnonameuser)**.
@@ -30,7 +30,7 @@ web/app/
 ├── index.html
 ├── css/
 ├── js/        # Follow activation logic in index.html 
-└── .../
+└── ...
 ```
 Your app will use the same SDK calls (SpixiAppSdk.sendNetworkProtocolData, etc.) in both browser and Spixi.
 
